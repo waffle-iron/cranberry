@@ -2,6 +2,8 @@ package shmup.logic;
 
 import shmup.model.ModelController;
 
+using cranberry.math.CMath;
+
 /** **/
 class LogicController extends cranberry.logic.Logic
 {
@@ -30,6 +32,9 @@ class LogicController extends cranberry.logic.Logic
 				mCtrl.velocityY += dt * mCtrl.acceleration;
 			if(_isUp)
 				mCtrl.velocityY -= dt * mCtrl.acceleration;
+
+			mCtrl.x = (mCtrl.x + mCtrl.velocityX).clampFloat(0, 1024-100);
+			mCtrl.y = (mCtrl.y + mCtrl.velocityY).clampFloat(0, 768-100);
 		}
 	}
 

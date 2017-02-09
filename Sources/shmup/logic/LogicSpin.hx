@@ -20,9 +20,8 @@ class LogicSpin extends cranberry.logic.Logic
 	/** **/
 	override public function onUpdate(dt :Float) : Void
 	{
-		for(modelSpin in _modelSpinArra) {
+		for(modelSpin in _modelSpinArra)
 			modelSpin.rotation += dt * modelSpin.speed;
-		}
 	}
 
 	private var _modelSpinArra :Array<ModelSpin>;

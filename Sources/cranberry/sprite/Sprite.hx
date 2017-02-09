@@ -132,5 +132,5 @@ class Sprite
 	}
 
 	private var _children :Array<Sprite> = [];
-	private var _modelArra :Array<cranberry.model.Model> = [];
+	private var _modelArra :Array<cranberry.model.Model> = []; //implement only unique models!
 }
