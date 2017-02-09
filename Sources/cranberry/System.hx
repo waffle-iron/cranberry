@@ -4,11 +4,12 @@ import kha.Framebuffer;
 import kha.Scheduler;
 
 import cranberry.sprite.Sprite;
-import cranberry.logic.LogicSystem;
+import cranberry.logic.Logic;
 
+/** **/
 class System
 {
-
+	/** **/
 	public var root :Sprite;
 
 	public static function init(title :String, width :Int, height :Int, cb :System -> Void) : Void
@@ -22,38 +23,40 @@ class System
 		});
 	}
 	
-
+	/** **/
 	private function new() : Void
 	{
 		kha.System.notifyOnRender(render);
 		Scheduler.addTimeTask(update, 0, 1 / 60);
 
 		root = new Sprite();
-		_logicSystemsArra = new Array<LogicSystem>();
+		_logicArra = new Array<Logic>();
 	}
 
-	public function addLogicSystem(logicSys :LogicSystem) : System
+	/** **/
+	public function addLogic(logic :Logic) : System
 	{
-		_logicSystemsArra.push(logicSys);
+		_logicArra.push(logic);
 		return this;
 	}
 
-	public function removeLogicSystem(logicSys :LogicSystem) : System
+	/** **/
+	public function removeLogic(logic :Logic) : System
 	{
-		_logicSystemsArra.remove(logicSys);
+		_logicArra.remove(logic);
 		return this;
 	}
 
-
+	/** **/
 	private function update(): Void {
 		var currentTime = kha.Scheduler.time();
 		_deltaTime = currentTime - _lastTime;
 		_lastTime = currentTime;
-		for(sys in _logicSystemsArra)
+		for(sys in _logicArra)
 			sys.onUpdate(_deltaTime);
-		root._runLogic(_deltaTime);
 	}
 
+	/** **/
 	private function render(framebuffer: Framebuffer): Void {
 		framebuffer.g2.begin();
 		root._render(framebuffer);
@@ -62,7 +65,7 @@ class System
 
 	private var _deltaTime :Float = 0;
 	private var _lastTime :Float = 0;
-	private var _logicSystemsArra :Array<LogicSystem>;
+	private var _logicArra :Array<Logic>;
 
 	private static var _hasInit :Bool = false;
 }

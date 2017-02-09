@@ -1,20 +1,29 @@
 package shmup.logic;
 
-import cranberry.logic.Logic;
+import shmup.model.ModelSpin;
 
-class LogicSpin extends Logic
+class LogicSpin extends cranberry.logic.Logic
 {
-	public var speed :Float;
 
-	public function new(speed :Float) : Void
+	/** **/
+	public function new() : Void
 	{
 		super();
-		this.speed = speed;
 	}
 
 	/** **/
-	override public function onUpdate(dt :Float, sprite :cranberry.sprite.Sprite) : Void
+	override public function onAdded() : Void
 	{
-		sprite.rotation += dt * speed;
-	}	
+		_modelSpinArra = this.getModel(ModelSpin);
+	}
+
+	/** **/
+	override public function onUpdate(dt :Float) : Void
+	{
+		for(modelSpin in _modelSpinArra) {
+			modelSpin.rotation += dt * modelSpin.speed;
+		}
+	}
+
+	private var _modelSpinArra :Array<ModelSpin>;
 }

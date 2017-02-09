@@ -1,11 +1,13 @@
 package cranberry.sprite;
 
+/** **/
 class SpriteFillRect extends Sprite
 {
 	public var color :kha.Color;
 	public var width :Float;
 	public var height :Float;
 
+	/** **/
 	public function new(color :kha.Color, width :Float, height :Float) : Void
 	{
 		super();
@@ -14,6 +16,7 @@ class SpriteFillRect extends Sprite
 		this.height = height;
 	}
 
+	/** **/
 	override public function render(framebuffer :kha.Framebuffer) : Void
 	{
 		framebuffer.g2.color = this.color;

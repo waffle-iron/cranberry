@@ -1,56 +1,39 @@
 package shmup.logic;
 
-import cranberry.logic.Logic;
+import shmup.model.ModelController;
 
-class LogicController extends Logic
+/** **/
+class LogicController extends cranberry.logic.Logic
 {
-
-	public var velocityX :Float = 0;
-	public var velocityY :Float = 0;
-	public var acceleration :Float;
-
-	public var initialX :Float;
-	public var initialY :Float;
-
 	/** **/
-	public function new(acceleration :Float) : Void
+	public function new() : Void
 	{
 		super();
-		this.acceleration = acceleration;
 		kha.input.Keyboard.get().notify(onKeyDown, onKeyUp);
 	}
 
 	/** **/
-	override public function onAdded(sprite :cranberry.sprite.Sprite) : Void
+	override public function onAdded() : Void
 	{
-		initialX = sprite.x;
-		initialY = sprite.y;
+		_modelControllerArra = this.getModel(ModelController);
 	}
 
 	/** **/
-	override public function onRemoved(sprite :cranberry.sprite.Sprite) : Void
+	override public function onUpdate(dt :Float) : Void
 	{
-		sprite.alpha = 0.2;
+		for(mCtrl in _modelControllerArra) {
+			if(_isLeft)
+				mCtrl.velocityX -= dt * mCtrl.acceleration;
+			if(_isRight)
+				mCtrl.velocityX += dt * mCtrl.acceleration;
+			if(_isDown)
+				mCtrl.velocityY += dt * mCtrl.acceleration;
+			if(_isUp)
+				mCtrl.velocityY -= dt * mCtrl.acceleration;
+		}
 	}
 
 	/** **/
-	override public function onUpdate(dt :Float, sprite :cranberry.sprite.Sprite) : Void
-	{
-		if(_isLeft)
-			velocityX -= dt * acceleration;
-		if(_isRight)
-			velocityX += dt * acceleration;
-		if(_isDown)
-			velocityY += dt * acceleration;
-		if(_isUp)
-			velocityY -= dt * acceleration;
-
-		sprite.x += velocityX;
-		sprite.y += velocityY;
-
-		initialX = sprite.x;
-	}
-
 	private function onKeyDown(key :kha.Key, value :String) : Void
 	{
 		switch(key) {
@@ -70,6 +53,7 @@ class LogicController extends Logic
 		}
 	}
 	
+	/** **/
 	private function onKeyUp(key :kha.Key, value :String) : Void
 	{
 		switch(key) {
@@ -81,12 +65,11 @@ class LogicController extends Logic
 				_isLeft = false;
 			case kha.Key.RIGHT:
 				_isRight = false;
-			case kha.Key.SHIFT:
-				this.destroy();
 			case _:
 		}
 	}
 
+	private var _modelControllerArra :Array<ModelController>;
 	private var _isLeft :Bool = false;
 	private var _isRight :Bool = false;
 	private var _isUp :Bool = false;

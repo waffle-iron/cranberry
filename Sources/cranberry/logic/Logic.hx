@@ -1,5 +1,8 @@
 package cranberry.logic;
 
+import cranberry.model.Model;
+
+/** **/
 class Logic
 {
 	/** **/
@@ -8,67 +11,53 @@ class Logic
 	}
 
 	/** **/
-	public function addLogicSystem(logicSys :cranberry.logic.LogicSystem) : Logic
+	public function onAdded() : Void
 	{
-		_logicSystem = JUST(logicSys);
-		logicSys.onAdded();
+
+	}
+
+	/** **/
+	public function onRemoved() : Void
+	{
+
+	}
+
+	/** **/
+	public function onUpdate(dt :Float) : Void
+	{
+
+	} 
+
+	/** **/
+	@:allow(cranberry.model.Model)
+	@:final private function addModel(model :Model) : Logic
+	{
+		var modelArra = getModel(Type.getClass(model));
+		modelArra.push(model);
 		return this;
-	}	
-
-	/** **/
-	public function onUpdate(dt :Float, sprite :cranberry.sprite.Sprite) : Void
-	{
 	}
 
 	/** **/
-	public function onAdded(sprite :cranberry.sprite.Sprite) : Void
+	@:allow(cranberry.model.Model)
+	@:final private function removeModel(model :Model) : Logic
 	{
+		var modelArra = getModel(Type.getClass(model));
+		modelArra.remove(model);
+		return this;
 	}
 
 	/** **/
-	public function onRemoved(sprite :cranberry.sprite.Sprite) : Void
+	@:final public function getModel<T>(classType :Class<T>) :Array<T>
 	{
-	}
-
-	/** **/
-	@:final public function destroy() : Void
-	{
-		_willDestroy = true;
-	}	
-
-	/** **/
-	@:allow(cranberry.sprite.Sprite)
-	@:final private function _onUpdate(dt :Float, sprite :cranberry.sprite.Sprite) : Void
-	{
-		if(_willDestroy)
-			sprite.removeLogic(this);
-		else
-			onUpdate(dt, sprite);
-	}
-
-	/** **/
-	@:allow(cranberry.sprite.Sprite)
-	@:final private function _onAdded(sprite :cranberry.sprite.Sprite) : Void
-	{
-		switch _logicSystem {
-			case NOTHING:
-			case JUST(sys): sys.addLogic(this);
+		var className :String = Type.getClassName(classType);
+		var modelArra = _modelMap.get(className);
+		if(modelArra == null) {
+			modelArra = new Array<Any>();
+			_modelMap.set(className, modelArra);
 		}
-		onAdded(sprite);
+
+		return cast modelArra;
 	}
 
-	/** **/
-	@:allow(cranberry.sprite.Sprite)
-	@:final private function _onRemoved(sprite :cranberry.sprite.Sprite) : Void
-	{
-		switch _logicSystem {
-			case NOTHING:
-			case JUST(sys): sys.removeLogic(this);
-		}
-		onRemoved(sprite);
-	}
-
-	private var _hasStarted :Bool = false;
-	private var _willDestroy :Bool = false;
-	private var _logicSystem :cranberry.util.Maybe<LogicSystem> = NOTHING;
+	private var _modelMap :Map<String, Array<Any>> = new Map<String, Array<Any>>();
 }

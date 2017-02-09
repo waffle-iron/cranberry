@@ -3,6 +3,7 @@ package cranberry.sprite;
 import kha.Framebuffer;
 import kha.Color;
 
+/** **/
 class Sprite
 {
 	public var x :Float = 0;
@@ -32,18 +33,18 @@ class Sprite
 	}
 
 	/** **/
-	@:final public function addLogic(logic :cranberry.logic.Logic) : Sprite
+	@:final public function addModel(model :cranberry.model.Model) : Sprite
 	{
-		_logicArra.push(logic);
-		logic._onAdded(this);
+		_modelArra.push(model);
+		model.onAdded(this);
 		return this;
 	}	
 
 	/** **/
-	@:final public function removeLogic(logic :cranberry.logic.Logic) : Sprite
+	@:final public function removeModel(model :cranberry.model.Model) : Sprite
 	{
-		_logicArra.remove(logic);
-		logic._onRemoved(this);
+		_modelArra.remove(model);
+		model.onRemoved(this);
 		return this;
 	}
 
@@ -103,9 +104,12 @@ class Sprite
 	@:allow(cranberry.System)
 	@:final private function _render(framebuffer: Framebuffer): Void 
 	{
+		for(model in _modelArra)
+			model.updateSprite(this);
+
 		framebuffer.g2.color = Color.White;
-		var sin = Math.sin(toRadians(rotation));
-        var cos = Math.cos(toRadians(rotation));
+		var sin = Math.sin(rotation * (Math.PI/180));
+        var cos = Math.cos(rotation * (Math.PI/180));
 		
 		var gMatrix = framebuffer.g2.transformation.multmat(new kha.math.FastMatrix3(
 			cos*scaleX, -sin*scaleY, x,
@@ -127,21 +131,6 @@ class Sprite
 		framebuffer.g2.popTransformation();
 	}
 
-	/** **/
-	@:allow(cranberry.System)
-	@:final private function _runLogic(dt: Float): Void 
-	{
-		for(logic in _logicArra)
-			logic._onUpdate(dt, this);
-		for(child in _children)
-			child._runLogic(dt);
-	}
-
-	private inline function toRadians (degrees :Float) : Float
-	{
-		return degrees * (Math.PI/180);
-	}
-
 	private var _children :Array<Sprite> = [];
-	private var _logicArra :Array<cranberry.logic.Logic> = [];
+	private var _modelArra :Array<cranberry.model.Model> = [];
 }

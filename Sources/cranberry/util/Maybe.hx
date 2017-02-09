@@ -1,5 +1,6 @@
 package cranberry.util;
 
+/** **/
 enum Maybe<T>
 {
 	NOTHING;
