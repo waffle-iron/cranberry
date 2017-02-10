@@ -2,7 +2,7 @@ package shmup.model;
 
 import cranberry.model.Model;
 
-class ModelSpin extends Model
+class ModelRotation extends Model
 {
 	public var rotation :Float;
 	public var speed :Float;

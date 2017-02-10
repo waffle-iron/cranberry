@@ -27,8 +27,8 @@ class SystemController extends cranberry.system.System
 			if(_isUp)
 				mCtrl.velocityY -= dt * mCtrl.acceleration;
 
-			mCtrl.x = (mCtrl.x + mCtrl.velocityX).clampFloat(0, 1024-100);
-			mCtrl.y = (mCtrl.y + mCtrl.velocityY).clampFloat(0, 768-100);
+			mCtrl.x = (mCtrl.x + mCtrl.velocityX).clampFloat(0, 1024);
+			mCtrl.y = (mCtrl.y + mCtrl.velocityY).clampFloat(0, 768);
 		}
 	}
 

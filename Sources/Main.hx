@@ -1,17 +1,20 @@
 package;
 
 import cranberry.Cranberry;
+import cranberry.sprite.Sprite;
 import cranberry.sprite.SpriteFillRect;
+import cranberry.sprite.SpriteFillCircle;
 import cranberry.sprite.SpriteSubImage;
 import cranberry.model.ModelFlipBook;
 import cranberry.system.SystemFlipBook;
 
-import shmup.model.ModelSpin;
+import shmup.model.ModelRotation;
 import shmup.model.ModelController;
+import shmup.model.ModelZIndex;
 
-import shmup.system.SystemSpin;
+import shmup.system.SystemRotation;
 import shmup.system.SystemController;
-
+import shmup.system.SystemZIndex;
 
 class Main {
 	public static function main() {
@@ -25,28 +28,40 @@ class Main {
 	public static function startgame(cranberry :Cranberry) : Void
 	{
 		var controllerSys = new SystemController();
-		var spinSys = new SystemSpin();
+		var spinSys = new SystemRotation();
 		var flipSys = new SystemFlipBook();
+		var zIndexSys = new SystemZIndex();
+
 		cranberry
 			.addSystem(controllerSys)
 			.addSystem(spinSys)
-			.addSystem(flipSys);
+			.addSystem(flipSys)
+			.addSystem(zIndexSys);
+
+		var subSpr :Sprite;
 
 		cranberry.root
+			.addModel(new ModelZIndex()
+				.addSystem(zIndexSys))
 			.addSprite(new SpriteFillRect(kha.Color.Blue, 100, 100)
 				.setXY(300, 300)
 				.centerAnchor()
-				.addModel(new ModelSpin(0, 10)
+				.addModel(new ModelRotation(0, 10)
 					.addSystem(spinSys)))
-			.addSprite(new SpriteSubImage(kha.Assets.images.flip, 0, 0, 0, 0)
+			.addSprite(subSpr = new SpriteSubImage(kha.Assets.images.flip, 0, 0, 0, 0)
 				.setXY(600, 300)
-				.addModel(new ModelFlipBook(3, 6, 2)
+				.addModel(new ModelRotation(0, -100)
+					.addSystem(spinSys))
+				.addModel(new ModelFlipBook(12, 6, 2)
 					.addSystem(flipSys))
 				.addModel(new ModelController(2)
 					.addSystem(controllerSys)))
-			.addSprite(new SpriteFillRect(kha.Color.Yellow, 100, 100)
+			.addSprite(new SpriteFillCircle(kha.Color.Yellow, 50)
 				.setXY(100, 300)
+				.centerAnchor()
 				.addModel(new ModelController(5)
 					.addSystem(controllerSys)));
+
+		subSpr.centerAnchor();
 	}
 }

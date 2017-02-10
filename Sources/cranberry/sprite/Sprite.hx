@@ -57,6 +57,12 @@ class Sprite
 	}
 
 	/** **/
+	@:final public inline function getSprites() : Array<Sprite>
+	{
+		return _children;
+	}
+
+	/** **/
 	public function centerAnchor() : Sprite
 	{
 		return this;
