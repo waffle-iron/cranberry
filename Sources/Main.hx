@@ -13,11 +13,11 @@ import shmup.model.ModelController;
 import shmup.model.ModelZIndex;
 
 import shmup.system.SystemRotation;
-import shmup.system.SystemController;
 import shmup.system.SystemZIndex;
 
 import community.napeBerry.model.ModelNapeBody;
 import community.napeBerry.system.SystemNape;
+import community.napeBerry.system.SystemNapeController;
 
 class Main {
 	public static function main() {
@@ -30,7 +30,7 @@ class Main {
 
 	public static function startgame(cranberry :Cranberry) : Void
 	{
-		var controllerSys = new SystemController();
+		var controllerSys = new SystemNapeController();
 		var spinSys = new SystemRotation();
 		var flipSys = new SystemFlipBook();
 		var zIndexSys = new SystemZIndex();
@@ -68,9 +68,8 @@ class Main {
 			.addSprite(new SpriteFillCircle(kha.Color.Yellow, 50)
 				.setXY(100, 300)
 				.centerAnchor()
-				.addModel(new ModelController(5)
-					.addSystem(controllerSys))
 				.addModel(new ModelNapeBody()
+					.addSystem(controllerSys)
 					.addSystem(napeSys)));
 
 		subSpr.centerAnchor();

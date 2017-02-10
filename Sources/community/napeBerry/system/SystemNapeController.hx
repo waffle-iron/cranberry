@@ -1,21 +1,29 @@
-package shmup.system;
+package community.napeBerry.system;
 
-import shmup.model.ModelController;
+import community.napeBerry.model.ModelNapeBody;
 
 /** **/
-class SystemController extends cranberry.system.System
+class SystemNapeController extends cranberry.system.System
 {
 	/** **/
 	public function new() : Void
 	{
 		kha.input.Keyboard.get().notify(onKeyDown, onKeyUp);
-		_modelControllerArra = this.getModel(ModelController);
+		_modelBodyArra = this.getModel(ModelNapeBody);
 	}
 
 	/** **/
 	override public function updateSystem(dt :Float) : Void
 	{
-		for(model in _modelControllerArra) {
+		for(mBody in _modelBodyArra) {
+			if(_isLeft)
+				mBody.body.velocity.x -= dt * 100;
+			if(_isRight)
+				mBody.body.velocity.x += dt * 100;
+			if(_isDown)
+				mBody.body.velocity.y += dt * 100;
+			if(_isUp)
+				mBody.body.velocity.y -= dt * 100;
 		}
 	}
 
@@ -55,7 +63,7 @@ class SystemController extends cranberry.system.System
 		}
 	}
 
-	private var _modelControllerArra :Array<ModelController>;
+	private var _modelBodyArra :Array<ModelNapeBody>;
 
 	private var _isLeft :Bool = false;
 	private var _isRight :Bool = false;
