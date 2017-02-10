@@ -15,6 +15,7 @@ import shmup.model.ModelZIndex;
 import shmup.system.SystemRotation;
 import shmup.system.SystemZIndex;
 
+import community.napeBerry.sprite.SpriteNapeDebug;
 import community.napeBerry.model.ModelNapeBody;
 import community.napeBerry.system.SystemNape;
 import community.napeBerry.system.SystemNapeController;
@@ -48,6 +49,7 @@ class Main {
 		cranberry.root
 			.addModel(new ModelZIndex()
 				.addSystem(zIndexSys))
+			.addSprite(new SpriteNapeDebug(napeSys.space))
 			.addSprite(new SpriteFillRect(kha.Color.Blue, 100, 100)
 				.setXY(300, 300)
 				.centerAnchor()

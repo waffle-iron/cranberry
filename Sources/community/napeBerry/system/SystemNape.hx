@@ -9,26 +9,26 @@ import nape.space.Space;
 
 class SystemNape extends System
 {
+	public var space :Space;
 
 	public function new() : Void
 	{
-		_space = new Space(new Vec2(0, 0));
+		space = new Space(new Vec2(0, 0));
 		_modelBodyArra = this.getModel(ModelNapeBody);
 	}
 
 	override public function updateSystem(dt :Float) : Void
 	{
 		if(dt > 0)
-			_space.step(dt);
+			space.step(dt);
 
 		for(body in _modelBodyArra) {
 			if(!body.hasBeenAdded) {
-				body.body.space = _space;
+				body.body.space = space;
 			}
 		}
 	}
 
-	private var _space :Space;
 	private var _modelBodyArra :Array<ModelNapeBody>;
 
 }
