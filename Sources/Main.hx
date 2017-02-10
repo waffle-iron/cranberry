@@ -16,6 +16,9 @@ import shmup.system.SystemRotation;
 import shmup.system.SystemController;
 import shmup.system.SystemZIndex;
 
+import community.napeBerry.model.ModelNapeBody;
+import community.napeBerry.system.SystemNape;
+
 class Main {
 	public static function main() {
 		Cranberry.init("BoomHouse", 1024, 768, function(cranberry :Cranberry) {
@@ -31,12 +34,14 @@ class Main {
 		var spinSys = new SystemRotation();
 		var flipSys = new SystemFlipBook();
 		var zIndexSys = new SystemZIndex();
+		var napeSys = new SystemNape();
 
 		cranberry
 			.addSystem(controllerSys)
 			.addSystem(spinSys)
 			.addSystem(flipSys)
-			.addSystem(zIndexSys);
+			.addSystem(zIndexSys)
+			.addSystem(napeSys);
 
 		var subSpr :Sprite;
 
@@ -47,7 +52,9 @@ class Main {
 				.setXY(300, 300)
 				.centerAnchor()
 				.addModel(new ModelRotation(0, 10)
-					.addSystem(spinSys)))
+					.addSystem(spinSys))
+				.addModel(new ModelNapeBody()
+					.addSystem(napeSys)))
 			.addSprite(subSpr = new SpriteSubImage(kha.Assets.images.flip, 0, 0, 0, 0)
 				.setXY(600, 300)
 				.addModel(new ModelRotation(0, -100)
@@ -55,12 +62,16 @@ class Main {
 				.addModel(new ModelFlipBook(12, 6, 2)
 					.addSystem(flipSys))
 				.addModel(new ModelController(2)
-					.addSystem(controllerSys)))
+					.addSystem(controllerSys))
+				.addModel(new ModelNapeBody()
+					.addSystem(napeSys)))
 			.addSprite(new SpriteFillCircle(kha.Color.Yellow, 50)
 				.setXY(100, 300)
 				.centerAnchor()
 				.addModel(new ModelController(5)
-					.addSystem(controllerSys)));
+					.addSystem(controllerSys))
+				.addModel(new ModelNapeBody()
+					.addSystem(napeSys)));
 
 		subSpr.centerAnchor();
 	}
