@@ -52,7 +52,7 @@ class Main {
 			.addSprite(buildWall(1024, 768/2, 10, 768, napeSys))
 			.addModel(new ModelZIndex()
 				.addSystem(zIndexSys))
-			.addSprite(new SpriteNapeDebug(napeSys.space))
+			// .addSprite(new SpriteNapeDebug(napeSys.space))
 			.addSprite(new SpriteFillRect(kha.Color.Blue, 100, 100)
 				.setXY(300, 300)
 				.centerAnchor()
@@ -63,6 +63,7 @@ class Main {
 				.addModel(new ModelFlipBook(12, 6, 2)
 					.addSystem(flipSys))
 				.addModel(new ModelNapeBody(RECTANGLE(66, 101), BodyType.DYNAMIC)
+					.addSystem(controllerSys)
 					.addSystem(napeSys)))
 			.addSprite(new SpriteFillCircle(kha.Color.Yellow, 50)
 				.setXY(100, 300)
@@ -77,7 +78,7 @@ class Main {
 	private static function buildWall(x :Float, y :Float, width :Float, height :Float, napeSys :community.napeBerry.system.SystemNape) : Sprite
 	{
 
-		return new SpriteFillRect(kha.Color.Blue, width, height)
+		return new SpriteFillRect(kha.Color.Black, width, height)
 			.setXY(x, y)
 			.centerAnchor()
 			.addModel(new ModelNapeBody(RECTANGLE(width, height), BodyType.STATIC)
