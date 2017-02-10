@@ -17,13 +17,13 @@ class SystemNapeController extends cranberry.system.System
 	{
 		for(mBody in _modelBodyArra) {
 			if(_isLeft)
-				mBody.body.velocity.x -= dt * 100;
+				mBody.body.velocity.x -= dt * 1000;
 			if(_isRight)
-				mBody.body.velocity.x += dt * 100;
+				mBody.body.velocity.x += dt * 1000;
 			if(_isDown)
-				mBody.body.velocity.y += dt * 100;
+				mBody.body.velocity.y += dt * 1000;
 			if(_isUp)
-				mBody.body.velocity.y -= dt * 100;
+				mBody.body.velocity.y -= dt * 1000;
 		}
 	}
 

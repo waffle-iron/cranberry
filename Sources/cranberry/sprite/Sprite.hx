@@ -3,6 +3,8 @@ package cranberry.sprite;
 import kha.Framebuffer;
 import kha.Color;
 
+using cranberry.math.CMath;
+
 /** **/
 class Sprite
 {
@@ -114,8 +116,8 @@ class Sprite
 			model.updateSprite(this);
 
 		framebuffer.g2.color = Color.White;
-		var sin = Math.sin(rotation * (Math.PI/180));
-        var cos = Math.cos(rotation * (Math.PI/180));
+		var sin = Math.sin(rotation.toRadians());
+        var cos = Math.cos(rotation.toRadians());
 		
 		var gMatrix = framebuffer.g2.transformation.multmat(new kha.math.FastMatrix3(
 			cos*scaleX, -sin*scaleY, x,

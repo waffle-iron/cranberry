@@ -13,7 +13,7 @@ class SystemNape extends System
 
 	public function new() : Void
 	{
-		space = new Space(new Vec2(0, 0));
+		space = new Space(new Vec2(0, 600));
 		_modelBodyArra = this.getModel(ModelNapeBody);
 	}
 

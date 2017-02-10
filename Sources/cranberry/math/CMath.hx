@@ -14,4 +14,16 @@ class CMath
 	{
 		return Math.min(Math.max(val, min), max);
 	}
+
+	/** **/
+	public static inline function toDegrees(radians :Float) : Float
+	{
+		return radians * (180/Math.PI);
+	}	
+
+	/** **/
+	public static inline function toRadians(degrees :Float) : Float
+	{
+		return degrees * (Math.PI/180);
+	}	
 }
