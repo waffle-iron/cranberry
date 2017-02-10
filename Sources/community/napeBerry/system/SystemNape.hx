@@ -24,6 +24,7 @@ class SystemNape extends System
 
 		for(body in _modelBodyArra) {
 			if(!body.hasBeenAdded) {
+				body.hasBeenAdded = true;
 				body.body.space = space;
 			}
 		}
