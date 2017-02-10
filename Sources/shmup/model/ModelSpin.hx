@@ -9,7 +9,6 @@ class ModelSpin extends Model
 
 	public function new(rotation :Float, speed :Float) : Void
 	{
-		super();
 		this.rotation = rotation;
 		this.speed = speed;
 	}

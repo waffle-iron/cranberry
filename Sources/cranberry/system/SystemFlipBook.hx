@@ -1,22 +1,18 @@
-package cranberry.logic;
+package cranberry.system;
 
 import cranberry.model.ModelFlipBook;
 
 /** **/
-class LogicFlipBook extends Logic
+class SystemFlipBook extends System
 {
 	/** **/
 	public function new() : Void
 	{
-		super();
-	}
-
-	override public function onAdded() : Void
-	{
 		_modelBookArra = this.getModel(ModelFlipBook);
 	}
 
-	override public function onUpdate(dt :Float) : Void
+	/** **/
+	override public function updateSystem(dt :Float) : Void
 	{
 		for(model in _modelBookArra) {
 			model.elapsed = (model.elapsed + dt*model.speed)%(model.rows*model.columns);

@@ -1,27 +1,21 @@
-package shmup.logic;
+package shmup.system;
 
 import shmup.model.ModelController;
 
 using cranberry.math.CMath;
 
 /** **/
-class LogicController extends cranberry.logic.Logic
+class SystemController extends cranberry.system.System
 {
 	/** **/
 	public function new() : Void
 	{
-		super();
 		kha.input.Keyboard.get().notify(onKeyDown, onKeyUp);
-	}
-
-	/** **/
-	override public function onAdded() : Void
-	{
 		_modelControllerArra = this.getModel(ModelController);
 	}
 
 	/** **/
-	override public function onUpdate(dt :Float) : Void
+	override public function updateSystem(dt :Float) : Void
 	{
 		for(mCtrl in _modelControllerArra) {
 			if(_isLeft)

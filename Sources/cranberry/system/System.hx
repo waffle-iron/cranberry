@@ -1,36 +1,19 @@
-package cranberry.logic;
+package cranberry.system;
 
 import cranberry.model.Model;
 
 /** **/
-class Logic
+class System
 {
 	/** **/
-	public function new() : Void
-	{
-	}
-
-	/** **/
-	public function onAdded() : Void
-	{
-
-	}
-
-	/** **/
-	public function onRemoved() : Void
-	{
-
-	}
-
-	/** **/
-	public function onUpdate(dt :Float) : Void
+	public function updateSystem(dt :Float) : Void
 	{
 
 	} 
 
 	/** **/
 	@:allow(cranberry.model.Model)
-	@:final private function addModel(model :Model) : Logic
+	@:final private function addModel(model :Model) : System
 	{
 		var modelArra = getModel(Type.getClass(model));
 		modelArra.push(model);
@@ -39,7 +22,7 @@ class Logic
 
 	/** **/
 	@:allow(cranberry.model.Model)
-	@:final private function removeModel(model :Model) : Logic
+	@:final private function removeModel(model :Model) : System
 	{
 		var modelArra = getModel(Type.getClass(model));
 		modelArra.remove(model);

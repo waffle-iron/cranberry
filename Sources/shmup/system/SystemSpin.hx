@@ -1,24 +1,18 @@
-package shmup.logic;
+package shmup.system;
 
 import shmup.model.ModelSpin;
 
-class LogicSpin extends cranberry.logic.Logic
+class SystemSpin extends cranberry.system.System
 {
 
 	/** **/
 	public function new() : Void
 	{
-		super();
-	}
-
-	/** **/
-	override public function onAdded() : Void
-	{
 		_modelSpinArra = this.getModel(ModelSpin);
 	}
 
 	/** **/
-	override public function onUpdate(dt :Float) : Void
+	override public function updateSystem(dt :Float) : Void
 	{
 		for(modelSpin in _modelSpinArra)
 			modelSpin.rotation += dt * modelSpin.speed;

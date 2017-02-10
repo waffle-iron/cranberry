@@ -27,16 +27,10 @@ class Sprite
 	}
 
 	/** **/
-	public function centerAnchor() : Sprite
-	{
-		return this;
-	}
-
-	/** **/
 	@:final public function addModel(model :cranberry.model.Model) : Sprite
 	{
 		_modelArra.push(model);
-		model.onAdded(this);
+		model.onAddedToSprite(this);
 		return this;
 	}	
 
@@ -44,7 +38,7 @@ class Sprite
 	@:final public function removeModel(model :cranberry.model.Model) : Sprite
 	{
 		_modelArra.remove(model);
-		model.onRemoved(this);
+		model.onRemovedFromSprite(this);
 		return this;
 	}
 
@@ -60,7 +54,13 @@ class Sprite
 	{
 		_children.remove(child);
 		return this;
-	}	
+	}
+
+	/** **/
+	public function centerAnchor() : Sprite
+	{
+		return this;
+	}
 
 	/** **/
 	@:final public function setXY(x :Float, y :Float) : Sprite
@@ -101,7 +101,7 @@ class Sprite
 	}
 
 	/** **/
-	@:allow(cranberry.System)
+	@:allow(cranberry.Cranberry)
 	@:final private function _render(framebuffer: Framebuffer): Void 
 	{
 		for(model in _modelArra)

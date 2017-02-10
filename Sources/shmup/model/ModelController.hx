@@ -13,12 +13,11 @@ class ModelController extends Model
 	/** **/
 	public function new(acceleration :Float) : Void
 	{
-		super();
 		this.acceleration = acceleration;
 	}
 
 	/** **/
-	override public function onAdded(sprite :cranberry.sprite.Sprite) : Void
+	override public function onAddedToSprite(sprite :cranberry.sprite.Sprite) : Void
 	{
 		x = sprite.x;
 		y = sprite.y;

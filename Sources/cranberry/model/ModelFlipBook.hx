@@ -9,25 +9,25 @@ class ModelFlipBook extends Model
 	public var frame :Int = 0;
 	public var elapsed :Float = 0;
 	public var speed :Float;
-	public var frameWidth :Float;
-	public var frameHeight :Float;
 	public var columns :Int;
 	public var rows :Int;
+	public var frameWidth :Float;
+	public var frameHeight :Float;
 
-	public function new(speed :Float) : Void
+	public function new(speed :Float, columns :Int, rows :Int) : Void
 	{
-		super();
 		this.speed = speed;
+		this.columns = columns;
+		this.rows = rows;
 	}
 
 	/** **/
-	override public function onAdded(sprite :cranberry.sprite.Sprite) : Void
+	override public function onAddedToSprite(sprite :cranberry.sprite.Sprite) : Void
 	{
 		var spr = cast(sprite, SpriteSubImage);
-		frameWidth = spr.width;
-		frameHeight = spr.height;
-		columns = Math.round(spr.image.width/frameWidth);
-		rows = Math.round(spr.image.height/frameHeight);
+		frameWidth = spr.image.width/columns;
+		frameHeight = spr.image.height/rows;
+		spr.setDimensions(frameWidth, frameHeight);
 	}
 
 	/** **/

@@ -1,43 +1,36 @@
 package cranberry.model;
 
-import cranberry.logic.Logic;
+import cranberry.system.System;
 
 /** **/
 class Model
 {
-	/** **/
-	public function new() : Void
-	{
-	}
-
 	/** **/
 	public function updateSprite(sprite :cranberry.sprite.Sprite) : Void
 	{
 	}
 
 	/** **/
-	public function onAdded(sprite :cranberry.sprite.Sprite) : Void
+	public function onAddedToSprite(sprite :cranberry.sprite.Sprite) : Void
 	{
 	}
 
 	/** **/
-	public function onRemoved(sprite :cranberry.sprite.Sprite) : Void
+	public function onRemovedFromSprite(sprite :cranberry.sprite.Sprite) : Void
 	{
 	}
 
 	/** **/
-	@:final public function addLogic(logic :cranberry.logic.Logic) : Model
+	@:final public function addSystem(system :cranberry.system.System) : Model
 	{
-		logic.addModel(this);
-		logic.onAdded();
+		system.addModel(this);
 		return this;
 	}
 
 	/** **/
-	@:final public function removeLogic(logic :cranberry.logic.Logic) : Model
+	@:final public function removeSystem(system :cranberry.system.System) : Model
 	{
-		logic.removeModel(this);
-		logic.onRemoved();
+		system.removeModel(this);
 		return this;
 	}
 }
