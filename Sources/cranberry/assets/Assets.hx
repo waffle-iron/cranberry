@@ -1,11 +1,8 @@
 package cranberry.assets;
 
-/** **/
-class Assets
-{
-	/** **/
-	public function new() : Void
-	{
-
-	}
-}
+typedef Assets =
+#if empty_platform
+	cranberry.platform.empty.assets.Assets;
+#else
+	cranberry.platform.kha.assets.Assets;
+#end

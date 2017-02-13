@@ -1,5 +1,6 @@
 package cranberry.model;
 
+import cranberry.sprite.Sprite;
 import cranberry.sprite.SpriteSubImage;
 
 class ModelFlipBook extends Model
@@ -22,7 +23,7 @@ class ModelFlipBook extends Model
 	}
 
 	/** **/
-	override public function onAddedToSprite(sprite :cranberry.sprite.Sprite) : Void
+	override public function onAddedToSprite(sprite :Sprite) : Void
 	{
 		var spr = cast(sprite, SpriteSubImage);
 		frameWidth = spr.image.width/columns;
@@ -31,7 +32,7 @@ class ModelFlipBook extends Model
 	}
 
 	/** **/
-	override public function updateSprite(sprite :cranberry.sprite.Sprite) : Void
+	override public function updateSprite(sprite :Sprite) : Void
 	{
 		cast(sprite, SpriteSubImage).setPos(sx,sy);
 	}

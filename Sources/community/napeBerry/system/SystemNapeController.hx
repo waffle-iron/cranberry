@@ -1,6 +1,8 @@
 package community.napeBerry.system;
 
 import community.napeBerry.model.ModelNapeBody;
+import cranberry.input.Keyboard;
+import cranberry.input.Key;
 
 /** **/
 class SystemNapeController extends cranberry.system.System
@@ -8,7 +10,7 @@ class SystemNapeController extends cranberry.system.System
 	/** **/
 	public function new() : Void
 	{
-		kha.input.Keyboard.get().notify(onKeyDown, onKeyUp);
+		Keyboard.get().notify(onKeyDown, onKeyUp);
 		_modelBodyArra = this.getModel(ModelNapeBody);
 	}
 
@@ -28,19 +30,19 @@ class SystemNapeController extends cranberry.system.System
 	}
 
 	/** **/
-	private function onKeyDown(key :kha.Key, value :String) : Void
+	private function onKeyDown(key :Key, value :String) : Void
 	{
 		switch(key) {
-			case kha.Key.UP:
+			case Key.UP:
 				_isDown = false;
 				_isUp = true;
-			case kha.Key.DOWN:
+			case Key.DOWN:
 				_isDown = true;
 				_isUp = false;
-			case kha.Key.LEFT:
+			case Key.LEFT:
 				_isLeft = true;
 				_isRight = false;
-			case kha.Key.RIGHT:
+			case Key.RIGHT:
 				_isLeft = false;
 				_isRight = true;
 			case _:
@@ -48,16 +50,16 @@ class SystemNapeController extends cranberry.system.System
 	}
 	
 	/** **/
-	private function onKeyUp(key :kha.Key, value :String) : Void
+	private function onKeyUp(key :Key, value :String) : Void
 	{
 		switch(key) {
-			case kha.Key.UP:
+			case Key.UP:
 				_isUp = false;
-			case kha.Key.DOWN:
+			case Key.DOWN:
 				_isDown = false;
-			case kha.Key.LEFT:
+			case Key.LEFT:
 				_isLeft = false;
-			case kha.Key.RIGHT:
+			case Key.RIGHT:
 				_isRight = false;
 			case _:
 		}

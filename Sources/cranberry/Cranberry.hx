@@ -1,7 +1,8 @@
 package cranberry;
 
-import kha.Framebuffer;
-import kha.Scheduler;
+import cranberry.graphics.Framebuffer;
+import cranberry.util.Scheduler;
+import cranberry.platform.Platform;
 
 import cranberry.sprite.Sprite;
 import cranberry.system.System;
@@ -18,7 +19,7 @@ class Cranberry
 			return;
 		_hasInit = true;
 
-		kha.System.init({title: title, width: width, height: height}, function () {
+		Platform.init({title: title, width: width, height: height}, function () {
 			cb(new Cranberry());
 		});
 	}
@@ -26,7 +27,7 @@ class Cranberry
 	/** **/
 	private function new() : Void
 	{
-		kha.System.notifyOnRender(renderSprites);
+		Platform.notifyOnRender(renderSprites);
 		Scheduler.addTimeTask(updateSystems, 0, 1 / 60);
 
 		root = new Sprite();
@@ -48,8 +49,9 @@ class Cranberry
 	}
 
 	/** **/
-	private function updateSystems(): Void {
-		var currentTime = kha.Scheduler.time();
+	private function updateSystems() : Void 
+	{
+		var currentTime = Scheduler.time();
 		_deltaTime = currentTime - _lastTime;
 		_lastTime = currentTime;
 		for(sys in _systemArra)
@@ -57,7 +59,8 @@ class Cranberry
 	}
 
 	/** **/
-	private function renderSprites(framebuffer: Framebuffer): Void {
+	private function renderSprites(framebuffer: Framebuffer) : Void 
+	{
 		framebuffer.g2.begin();
 		root._render(framebuffer);
 		framebuffer.g2.end();

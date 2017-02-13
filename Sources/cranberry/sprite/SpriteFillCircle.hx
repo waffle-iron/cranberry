@@ -1,15 +1,16 @@
 package cranberry.sprite;
 
-using kha.graphics2.GraphicsExtension;
+import cranberry.graphics.Color;
+import cranberry.graphics.Framebuffer;
 
 /** **/
 class SpriteFillCircle extends Sprite
 {
-	public var color :kha.Color;
+	public var color :Color;
 	public var radius :Float;
 
 	/** **/
-	public function new(color :kha.Color, radius :Float) : Void
+	public function new(color :Color, radius :Float) : Void
 	{
 		super();
 		this.color = color;
@@ -17,7 +18,7 @@ class SpriteFillCircle extends Sprite
 	}
 
 	/** **/
-	override public function render(framebuffer :kha.Framebuffer) : Void
+	override public function render(framebuffer :Framebuffer) : Void
 	{
 		framebuffer.g2.color = this.color;
 		framebuffer.g2.fillCircle(0, 0, radius);

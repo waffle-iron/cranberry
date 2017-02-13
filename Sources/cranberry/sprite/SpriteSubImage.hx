@@ -1,16 +1,20 @@
 package cranberry.sprite;
 
+import cranberry.graphics.Color;
+import cranberry.graphics.Framebuffer;
+import cranberry.graphics.Image;
+
 /** **/
 class SpriteSubImage extends Sprite
 {
-	public var image :kha.Image;
+	public var image :Image;
 	public var width :Float;
 	public var height :Float;
 	public var sx :Float;
 	public var sy :Float;
 
 	/** **/
-	public function new(image :kha.Image, sx :Float, sy :Float, width :Float, height :Float) : Void
+	public function new(image :Image, sx :Float, sy :Float, width :Float, height :Float) : Void
 	{
 		super();
 		this.image = image;
@@ -21,7 +25,7 @@ class SpriteSubImage extends Sprite
 	}
 
 	/** **/
-	override public function render(framebuffer :kha.Framebuffer) : Void
+	override public function render(framebuffer :Framebuffer) : Void
 	{
 		framebuffer.g2.drawSubImage(image, 0, 0, sx, sy, width, height);
 	}

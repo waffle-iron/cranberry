@@ -1,19 +1,23 @@
 package cranberry.sprite;
 
+import cranberry.graphics.Color;
+import cranberry.graphics.Framebuffer;
+import cranberry.graphics.Image;
+
 /** **/
 class SpriteImage extends Sprite
 {
-	public var image :kha.Image;
+	public var image :Image;
 
 	/** **/
-	public function new(image :kha.Image) : Void
+	public function new(image :Image) : Void
 	{
 		super();
 		this.image = image;
 	}
 
 	/** **/
-	override public function render(framebuffer :kha.Framebuffer) : Void
+	override public function render(framebuffer :Framebuffer) : Void
 	{
 		framebuffer.g2.drawImage(image, 0, 0);
 	}

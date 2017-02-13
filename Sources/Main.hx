@@ -7,6 +7,8 @@ import cranberry.sprite.SpriteFillCircle;
 import cranberry.sprite.SpriteSubImage;
 import cranberry.model.ModelFlipBook;
 import cranberry.system.SystemFlipBook;
+import cranberry.graphics.Color;
+import cranberry.assets.Assets;
 
 import shmup.model.ModelZIndex;
 
@@ -22,7 +24,7 @@ import nape.phys.BodyType;
 class Main {
 	public static function main() {
 		Cranberry.init("BoomHouse", 1024, 768, function(cranberry :Cranberry) {
-			kha.Assets.loadEverything(function() {
+			Assets.loadEverything(function() {
 				startgame(cranberry);
 			});
 		});
@@ -52,33 +54,34 @@ class Main {
 			.addSprite(buildWall(1024, 768/2, 10, 768, napeSys))
 			.addModel(new ModelZIndex()
 				.addSystem(zIndexSys))
-			// .addSprite(new SpriteNapeDebug(napeSys.space))
-			.addSprite(new SpriteFillRect(kha.Color.Blue, 100, 100)
+			.addSprite(new SpriteFillRect(Color.White, 100, 100)
 				.setXY(300, 300)
 				.centerAnchor()
 				.addModel(new ModelNapeBody(RECTANGLE(100, 100), BodyType.DYNAMIC)
-					.addSystem(napeSys)))
-			.addSprite(subSpr = new SpriteSubImage(kha.Assets.images.flip, 0, 0, 0, 0)
-				.setXY(600, 300)
-				.addModel(new ModelFlipBook(12, 6, 2)
-					.addSystem(flipSys))
-				.addModel(new ModelNapeBody(RECTANGLE(66, 101), BodyType.DYNAMIC)
 					.addSystem(controllerSys)
 					.addSystem(napeSys)))
-			.addSprite(new SpriteFillCircle(kha.Color.Yellow, 50)
+			// .addSprite(subSpr = new SpriteSubImage(Assets.images.flip, 0, 0, 0, 0)
+			// 	.setXY(600, 300)
+			// 	.addModel(new ModelFlipBook(12, 6, 2)
+			// 		.addSystem(flipSys))
+			// 	.addModel(new ModelNapeBody(RECTANGLE(66, 101), BodyType.DYNAMIC)
+			// 		.addSystem(controllerSys)
+			// 		.addSystem(napeSys)))
+			.addSprite(new SpriteFillCircle(Color.White, 50)
 				.setXY(100, 300)
 				.centerAnchor()
 				.addModel(new ModelNapeBody(CIRCLE(50), BodyType.DYNAMIC)
 					.addSystem(controllerSys)
-					.addSystem(napeSys)));
+					.addSystem(napeSys)))
+			.addSprite(new SpriteNapeDebug(napeSys.space));
 
-		subSpr.centerAnchor();
+		// subSpr.centerAnchor();
 	}
 
 	private static function buildWall(x :Float, y :Float, width :Float, height :Float, napeSys :community.napeBerry.system.SystemNape) : Sprite
 	{
 
-		return new SpriteFillRect(kha.Color.Black, width, height)
+		return new SpriteFillRect(Color.White, width, height)
 			.setXY(x, y)
 			.centerAnchor()
 			.addModel(new ModelNapeBody(RECTANGLE(width, height), BodyType.STATIC)
