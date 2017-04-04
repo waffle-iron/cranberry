@@ -10,9 +10,9 @@ class SpriteFillCircle extends Sprite
 	public var radius :Float;
 
 	/** **/
-	public function new(color :Color, radius :Float) : Void
+	public function new(id :Int, color :Color, radius :Float) : Void
 	{
-		super();
+		super(id);
 		this.color = color;
 		this.radius = radius;
 	}

@@ -11,9 +11,9 @@ class SpriteFillRect extends Sprite
 	public var height :Float;
 
 	/** **/
-	public function new(color :Color, width :Float, height :Float) : Void
+	public function new(id :Int, color :Color, width :Float, height :Float) : Void
 	{
-		super();
+		super(id);
 		this.color = color;
 		this.width = width;
 		this.height = height;

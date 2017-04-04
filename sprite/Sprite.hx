@@ -5,6 +5,8 @@ import cranberry.graphics.Framebuffer;
 import cranberry.graphics.Color;
 import cranberry.math.Matrix;
 
+import cranberry.util.Maybe;
+
 using cranberry.math.CMath;
 
 /** **/
@@ -19,10 +21,16 @@ class Sprite
 	public var rotation :Float = 0;
 	public var alpha :Float = 1;
 	public var visible :Bool = true;
+	public var active :Bool = true;
+	public var locked :Bool = true;
+
+	public var id :Int;
+	
 
 	/** **/
-	public function new() : Void
+	public function new(id :Int) : Void
 	{
+		this.id = id;
 	}
 
 	/** **/
@@ -64,6 +72,16 @@ class Sprite
 	@:final public inline function getSprites() : Array<Sprite>
 	{
 		return _children;
+	}
+
+	/** **/
+	@:final public function getSprite(id :Int) : Maybe<Sprite>
+	{
+		for(child in _children) {
+			if(child.id == id)
+				return Just(child);
+		}
+		return Nothing;
 	}
 
 	/** **/
