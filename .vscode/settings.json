@@ -1,0 +1,20 @@
+{
+    "codedox": {
+        "fileheader": {
+            "templates": {
+                "*": [
+                    "${license_mit}"
+                ]
+            },
+            "params": {
+                "haxe": {
+                    "company": "Jeremy Meltingtallow"
+                }
+            }
+        }
+    },
+    "elm.formatOnSave": true,
+    "haxe.displayConfigurations": [
+        ["build.hxml"]
+    ]
+}
