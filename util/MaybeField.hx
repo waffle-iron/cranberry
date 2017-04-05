@@ -19,50 +19,14 @@
  * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package cranberry.model;
 
-import cranberry.sprite.Sprite;
-import cranberry.system.System;
+package cranberry.util;
 
-
-/** **/
-class Model
+abstract MaybeField<T>(Null<T>)
 {
-	public var id (default, null):Int;
-
-
-	/** **/
-	public function new(id :Int) : Void
-	{
-		this.id = id;
-	}
-
-	/** **/
-	public function updateSprite(sprite :Sprite) : Void
-	{
-	}
-
-	/** **/
-	public function onAddedToSprite(sprite :Sprite) : Void
-	{
-	}
-
-	/** **/
-	public function onRemovedFromSprite(sprite :Sprite) : Void
-	{
-	}
-
-	/** **/
-	@:final public function addSystem(system :System) : Model
-	{
-		system.addModel(this);
-		return this;
-	}
-
-	/** **/
-	@:final public function removeSystem(system :System) : Model
-	{
-		system.removeModel(this);
-		return this;
-	}
+    public inline function maybe():Maybe<T> {
+        return (this != null)
+            ? Just(this)
+            : Nothing;
+    }
 }

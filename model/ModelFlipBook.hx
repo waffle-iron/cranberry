@@ -36,8 +36,9 @@ class ModelFlipBook extends Model
 	public var frameWidth :Float;
 	public var frameHeight :Float;
 
-	public function new(speed :Float, columns :Int, rows :Int) : Void
+	public function new(id :Int, speed :Float, columns :Int, rows :Int) : Void
 	{
+		super(id);
 		this.speed = speed;
 		this.columns = columns;
 		this.rows = rows;

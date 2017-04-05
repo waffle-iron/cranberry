@@ -45,7 +45,7 @@ class Sprite
 	public var active :Bool = true;
 	public var locked :Bool = true;
 
-	public var id :Int;
+	public var id (default, null):Int;
 	
 
 	/** **/
