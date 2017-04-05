@@ -44,7 +44,7 @@ class Sprite
 	public var alpha :Float = 1;
 	public var visible :Bool = true;
 	public var active :Bool = true;
-	public var locked :Bool = true;
+	public var locked :Bool = false;
 
 	public var id (default, null):Int;
 	
