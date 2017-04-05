@@ -31,6 +31,7 @@ import cranberry.util.Maybe;
 using cranberry.math.CMath;
 
 /** **/
+@:keep
 class Sprite
 {
 	public var x :Float = 0;

@@ -26,6 +26,7 @@ import cranberry.graphics.Framebuffer;
 import cranberry.graphics.Image;
 
 /** **/
+@:keep
 class SpriteSubImage extends Sprite
 {
 	public var image :Image;

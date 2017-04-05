@@ -25,6 +25,7 @@ import cranberry.graphics.Color;
 import cranberry.graphics.Framebuffer;
 
 /** **/
+@:keep
 class SpriteFillRect extends Sprite
 {
 	public var color :Color;
