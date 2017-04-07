@@ -48,6 +48,10 @@ class Sprite
 
 	public var id (default, null):Int;
 	
+	public var parent (default, null):Sprite = null;
+	public var firstChild (default, null):Sprite = null;
+	public var next (default, null):Sprite = null;
+	public var firstModel (default, null) :Model = null;
 
 	/** **/
 	public function new(id :Int) : Void
@@ -61,12 +65,53 @@ class Sprite
 	}
 
 	/** **/
+	@:final public function addSprite(child :Sprite) : Sprite
+	{
+		if (child.parent != null)
+			child.parent.removeSprite(child);
+		child.parent = this;
+
+		var tail = null, p = firstChild;
+		while (p != null) {
+			tail = p;
+			p = p.next;
+		}
+		if (tail != null)
+			tail.next = child;
+		else
+			firstChild = child;
+
+		return this;
+	}	
+
+	/** **/
+	@:final public function removeSprite(child :Sprite) : Void
+	{
+		var prev :Sprite = null, p = firstChild;
+        while (p != null) {
+            var next = p.next;
+            if (p == child) {
+                if (prev == null) {
+                    firstChild = next;
+                } else {
+                    prev.next = next;
+                }
+                p.parent = null;
+                p.next = null;
+                return;
+            }
+            prev = p;
+            p = next;
+        }
+	}
+
+	/** **/
 	@:final public function addModel(model :Model) : Sprite
 	{
 		_modelArra.push(model);
 		model.onAddedToSprite(this);
 		return this;
-	}	
+	}
 
 	/** **/
 	@:final public function removeModel(model :Model) : Sprite
@@ -77,31 +122,13 @@ class Sprite
 	}
 
 	/** **/
-	@:final public function addSprite(child :Sprite) : Sprite
-	{
-		_children.push(child);
-		return this;
-	}	
-
-	/** **/
-	@:final public function removeSprite(child :Sprite) : Sprite
-	{
-		_children.remove(child);
-		return this;
-	}
-
-	/** **/
-	@:final public inline function getSprites() : Array<Sprite>
-	{
-		return _children;
-	}
-
-	/** **/
 	@:final public function getSprite(id :Int) : Maybe<Sprite>
 	{
-		for(child in _children) {
-			if(child.id == id)
-				return Just(child);
+		var p = firstChild;
+		while(p != null) {
+			if(p.id == id)
+				return Just(p);
+			p = p.next;
 		}
 		return Nothing;
 	}
@@ -173,14 +200,16 @@ class Sprite
 
 		if(visible && alpha > 0) {
 			render(framebuffer);
-			for(child in _children)
-				child._render(framebuffer);
+			var p = firstChild;
+			while(p != null) {
+				p._render(framebuffer);
+				p = p.next;
+			}
 		}
 
 		framebuffer.g2.opacity = 1;
 		framebuffer.g2.popTransformation();
 	}
 
-	private var _children :Array<Sprite> = [];
 	private var _modelArra :Array<Model> = []; //implement only unique models!
 }
