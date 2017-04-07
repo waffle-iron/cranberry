@@ -42,7 +42,7 @@ class SpriteFillCircle extends Sprite
 	/** **/
 	override public function render(framebuffer :Framebuffer) : Void
 	{
-		framebuffer.g2.color = this.color;
+		framebuffer.g2.color = 0xFF000000 + this.color;
 		framebuffer.g2.fillCircle(0, 0, radius);
 	}
 }
