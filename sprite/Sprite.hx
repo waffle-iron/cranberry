@@ -64,7 +64,7 @@ class Sprite
 	{
 	}
 
-	/** **/
+
 	@:final public function addSprite(child :Sprite) : Sprite
 	{
 		if (child.parent != null)
