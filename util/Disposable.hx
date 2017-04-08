@@ -19,60 +19,9 @@
  * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package cranberry.model;
+package cranberry.util;
 
-import cranberry.sprite.Sprite;
-import cranberry.system.System;
-import cranberry.util.Disposable;
-
-
-/** **/
-@:allow(cranberry.sprite.Sprite)
-class Model implements Disposable
+interface Disposable
 {
-	public var id (default, null):Int;
-	public var owner (default, null) :Sprite = null;
-	public var next (default, null) :Model = null;
-
-	/** **/
-	public function new(id :Int) : Void
-	{
-		this.id = id;
-	}
-
-	/** **/
-	public function updateSprite(sprite :Sprite) : Void
-	{
-	}
-
-	/** **/
-	public function onAddedToSprite(sprite :Sprite) : Void
-	{
-	}
-
-	/** **/
-	public function onRemovedFromSprite(sprite :Sprite) : Void
-	{
-	}
-
-	/** **/
-	@:final public function addSystem(system :System) : Model
-	{
-		system.addModel(this);
-		return this;
-	}
-
-	/** **/
-	@:final public function removeSystem(system :System) : Model
-	{
-		system.removeModel(this);
-		return this;
-	}
-
-	public function dispose ()
-    {
-        if (owner != null) {
-            owner.removeModel(this);
-        }
-    }
+    function dispose () :Void;
 }

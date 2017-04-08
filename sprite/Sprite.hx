@@ -27,12 +27,13 @@ import cranberry.graphics.Color;
 import cranberry.math.Matrix;
 
 import cranberry.util.Maybe;
+import cranberry.util.Disposable;
 
 using cranberry.math.CMath;
 
 /** **/
 @:keep
-class Sprite
+class Sprite implements Disposable
 {
 	public var x :Float = 0;
 	public var y :Float = 0;
@@ -53,17 +54,14 @@ class Sprite
 	public var next (default, null):Sprite = null;
 	public var firstModel (default, null) :Model = null;
 
-	/** **/
 	public function new(id :Int) : Void
 	{
 		this.id = id;
 	}
 
-	/** **/
 	public function render(framebuffer: Framebuffer) : Void
 	{
 	}
-
 
 	@:final public function addSprite(child :Sprite) : Sprite
 	{
@@ -84,7 +82,6 @@ class Sprite
 		return this;
 	}	
 
-	/** **/
 	@:final public function removeSprite(child :Sprite) : Void
 	{
 		var prev :Sprite = null, p = firstChild;
@@ -105,23 +102,53 @@ class Sprite
         }
 	}
 
-	/** **/
 	@:final public function addModel(model :Model) : Sprite
 	{
-		_modelArra.push(model);
+		if (model.owner != null)
+			model.owner.removeModel(model);
+
+		var tail = null, p = firstModel;
+		while (p != null) {
+			tail = p;
+			p = p.next;
+		}
+		if (tail != null)
+			tail.next = model;
+		else
+			firstModel = model;
+
+		model.owner = this;
+		model.next = null;
 		model.onAddedToSprite(this);
+
 		return this;
 	}
 
-	/** **/
-	@:final public function removeModel(model :Model) : Sprite
+	@:final public function removeModel(model :Model) : Bool
 	{
-		_modelArra.remove(model);
-		model.onRemovedFromSprite(this);
-		return this;
+		var prev :Model = null, p = firstModel;
+        while (p != null) {
+            var next = p.next;
+            if (p == model) {
+                if (prev == null) {
+                    firstModel = next;
+                } else {
+                    prev.owner = this;
+                    prev.next = next;
+                }
+
+				model.onRemovedFromSprite(this);
+                p.owner = null;
+                p.next = null;
+                return true;
+            }
+            prev = p;
+            p = next;
+        }
+
+		return false;
 	}
 
-	/** **/
 	@:final public function getSprite(id :Int) : Maybe<Sprite>
 	{
 		var p = firstChild;
@@ -133,13 +160,11 @@ class Sprite
 		return Nothing;
 	}
 
-	/** **/
 	public function centerAnchor() : Sprite
 	{
 		return this;
 	}
 
-	/** **/
 	@:final public function setXY(x :Float, y :Float) : Sprite
 	{
 		this.x = x;
@@ -147,7 +172,6 @@ class Sprite
 		return this;
 	}
 
-	/** **/
 	@:final public function setAnchorXY(x :Float, y :Float) : Sprite
 	{
 		this.anchorX = x;
@@ -155,21 +179,18 @@ class Sprite
 		return this;
 	}
 
-	/** **/
 	@:final public function setRotation(degrees :Float) : Sprite
 	{
 		this.rotation = degrees;
 		return this;
 	}
 
-	/** **/
 	@:final public function setAlpha(alpha :Float) : Sprite
 	{
 		this.alpha = alpha;
 		return this;
 	}
 
-	/** **/
 	@:final public function setScaleXY(scaleX :Float, scaleY :Float) : Sprite
 	{
 		this.scaleX = scaleX;
@@ -177,12 +198,33 @@ class Sprite
 		return this;
 	}
 
-	/** **/
+	public function disposeChildren ()
+    {
+        while (firstChild != null) {
+            firstChild.dispose();
+        }
+    }
+
+	public function dispose ()
+    {
+        if (parent != null) {
+            parent.removeSprite(this);
+        }
+
+        while (firstModel != null) {
+            firstModel.dispose();
+        }
+        disposeChildren();
+    }
+
 	@:allow(cranberry.Cranberry)
 	@:final private function _render(framebuffer: Framebuffer): Void 
 	{
-		for(model in _modelArra)
+		var model = this.firstModel;
+		while(model != null) {
 			model.updateSprite(this);
+			model = model.next;
+		}
 
 		framebuffer.g2.color = Color.White;
 		var sin = Math.sin(rotation.toRadians());
@@ -210,6 +252,4 @@ class Sprite
 		framebuffer.g2.opacity = 1;
 		framebuffer.g2.popTransformation();
 	}
-
-	private var _modelArra :Array<Model> = []; //implement only unique models!
 }
