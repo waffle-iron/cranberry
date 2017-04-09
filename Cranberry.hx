@@ -51,7 +51,7 @@ class Cranberry
 		Platform.notifyOnRender(renderSprites);
 		Scheduler.addTimeTask(updateSystems, 0, 1 / 60);
 
-		root = new Sprite(-1);
+		root = new Sprite(0);
 		_systemArra = new Array<System>();
 	}
 

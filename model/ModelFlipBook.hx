@@ -47,15 +47,15 @@ class ModelFlipBook extends Model
 	/** **/
 	override public function onAddedToSprite(sprite :Sprite) : Void
 	{
-		var spr = cast(sprite, SpriteSubImage);
-		frameWidth = spr.image.width/columns;
-		frameHeight = spr.image.height/rows;
-		spr.setDimensions(frameWidth, frameHeight);
+		// var spr = cast(sprite, SpriteSubImage);
+		// frameWidth = spr.image.width/columns;
+		// frameHeight = spr.image.height/rows;
+		// spr.setDimensions(frameWidth, frameHeight);
 	}
 
 	/** **/
 	override public function updateSprite(sprite :Sprite) : Void
 	{
-		cast(sprite, SpriteSubImage).setPos(sx,sy);
+		// cast(sprite, SpriteSubImage).setPos(sx,sy);
 	}
 }

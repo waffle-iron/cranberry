@@ -149,17 +149,6 @@ class Sprite implements Disposable
 		return false;
 	}
 
-	@:final public function getSprite(id :Int) : Maybe<Sprite>
-	{
-		var p = firstChild;
-		while(p != null) {
-			if(p.id == id)
-				return Just(p);
-			p = p.next;
-		}
-		return Nothing;
-	}
-
 	public function centerAnchor() : Sprite
 	{
 		return this;
