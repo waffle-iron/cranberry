@@ -47,16 +47,13 @@ class Sprite implements Disposable
 	public var active :Bool = true;
 	public var locked :Bool = false;
 
-	public var id (default, null):Int;
-	
 	public var parent (default, null):Sprite = null;
 	public var firstChild (default, null):Sprite = null;
 	public var next (default, null):Sprite = null;
 	public var firstModel (default, null) :Model = null;
 
-	public function new(id :Int) : Void
+	public function new() : Void
 	{
-		this.id = id;
 	}
 
 	public function render(framebuffer: Framebuffer) : Void

@@ -32,9 +32,9 @@ class SpriteImage extends Sprite
 	public var image :Image;
 
 	/** **/
-	public function new(id :Int, image :Image) : Void
+	public function new(image :Image) : Void
 	{
-		super(id);
+		super();
 		this.image = image;
 	}
 

@@ -26,13 +26,10 @@ import cranberry.model.Model;
 /** **/
 class System
 {
-	/** **/
 	public function updateSystem(dt :Float) : Void
 	{
-
 	} 
 
-	/** **/
 	@:final public function getModel<M>(classType :Class<M>) :Array<M>
 	{
 		var className :String = Type.getClassName(classType);
@@ -45,7 +42,6 @@ class System
 		return cast modelArra;
 	}
 
-	/** **/
 	@:allow(cranberry.model.Model)
 	@:final private function addModel(model :Model) : System
 	{
@@ -54,7 +50,6 @@ class System
 		return this;
 	}
 
-	/** **/
 	@:allow(cranberry.model.Model)
 	@:final private function removeModel(model :Model) : System
 	{

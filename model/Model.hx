@@ -30,14 +30,12 @@ import cranberry.util.Disposable;
 @:allow(cranberry.sprite.Sprite)
 class Model implements Disposable
 {
-	public var id (default, null):Int;
 	public var owner (default, null) :Sprite = null;
 	public var next (default, null) :Model = null;
 
 	/** **/
-	public function new(id :Int) : Void
+	public function new() : Void
 	{
-		this.id = id;
 	}
 
 	/** **/

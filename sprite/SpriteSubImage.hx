@@ -36,9 +36,9 @@ class SpriteSubImage extends Sprite
 	public var sy :Float;
 
 	/** **/
-	public function new(id :Int, image :Image, sx :Float, sy :Float, width :Float, height :Float) : Void
+	public function new(image :Image, sx :Float, sy :Float, width :Float, height :Float) : Void
 	{
-		super(id);
+		super();
 		this.image = image;
 		this.sx = sx;
 		this.sy = sy;
