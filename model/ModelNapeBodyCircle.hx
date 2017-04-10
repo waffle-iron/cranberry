@@ -13,9 +13,8 @@ using cranberry.math.CMath;
 
 class ModelNapeBodyCircle extends ModelNapeBody
 {
-	public function new(id :Int, radius :Float, isStatic :Bool) : Void
+	public function new(radius :Float, isStatic :Bool) : Void
 	{
-        super(id);
 		this.napeShape = CIRCLE(radius);
 		this.bodyType = isStatic ? BodyType.STATIC : BodyType.DYNAMIC;
 		this.isStatic = isStatic;

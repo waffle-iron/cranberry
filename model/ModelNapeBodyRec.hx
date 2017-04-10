@@ -13,9 +13,8 @@ using cranberry.math.CMath;
 
 class ModelNapeBodyRec extends ModelNapeBody
 {
-	public function new(id :Int, width :Float, height :Float, isStatic :Bool) : Void
+	public function new(width :Float, height :Float, isStatic :Bool) : Void
 	{
-        super(id);
 		this.napeShape = RECTANGLE(width, height);
 		this.bodyType = isStatic ? BodyType.STATIC : BodyType.DYNAMIC;
 		this.isStatic = isStatic;

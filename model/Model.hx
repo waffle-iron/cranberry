@@ -33,11 +33,7 @@ class Model implements Disposable
 	public var owner (default, null) :Sprite = null;
 	public var next (default, null) :Model = null;
 	public var locked :Bool = false;
-	public var id (default, null) :Int;
 
-	public function new(id :Int) {
-		this.id = id;
-	}
 
 	public function updateSprite(sprite :Sprite) : Void
 	{

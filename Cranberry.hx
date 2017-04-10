@@ -27,8 +27,6 @@ import cranberry.platform.Platform;
 
 import cranberry.sprite.Sprite;
 import cranberry.system.System;
-import cranberry.model.Model;
-import cranberry.util.Maybe;
 
 class Cranberry
 {
@@ -99,26 +97,6 @@ class Cranberry
         }
 
 		return false;
-	}
-
-	public function getModelByID(sprite :Sprite, id :Int) : Maybe<Model>
-	{
-		var curSpr = sprite;
-		while(curSpr != null) {
-			switch (curSpr.getModelByID(id)) {
-				case Nothing:
-					switch this.getModelByID(curSpr.firstChild, id) {
-						case Nothing:
-						case Just(mod):
-							return Just(mod);
-					}
-					// return 
-				case Just(mod):
-					return Just(mod);
-			}
-			curSpr = curSpr.next;
-		}
-		return Nothing;
 	}
 
 	private function updateSystems() : Void 

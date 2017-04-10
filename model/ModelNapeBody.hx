@@ -19,12 +19,6 @@ class ModelNapeBody extends Model
 	public var bodyType :BodyType;
 	public var isStatic (default, set) :Bool;
 
-
-	public function new(id :Int) : Void
-	{
-        super(id);
-	}
-
 	/** **/
 	override public function updateSprite(sprite :cranberry.sprite.Sprite) : Void
 	{

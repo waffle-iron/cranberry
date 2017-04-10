@@ -146,17 +146,6 @@ class Sprite implements Disposable
 		return false;
 	}
 
-	@:final public function getModelByID(id :Int) : Maybe<Model>
-	{
-		var mod = firstModel;
-		while(mod != null) {
-			if(mod.id == id)
-				return Just(mod);
-			mod = mod.next;
-		}
-		return Nothing;
-	}
-
 	public function centerAnchor() : Sprite
 	{
 		return this;
