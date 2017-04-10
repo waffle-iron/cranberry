@@ -32,38 +32,38 @@ class Model implements Disposable
 {
 	public var owner (default, null) :Sprite = null;
 	public var next (default, null) :Model = null;
+	public var locked :Bool = false;
+	public var id (default, null) :Int;
 
-	/** **/
-	public function new() : Void
-	{
+	public function new(id :Int) {
+		this.id = id;
 	}
 
-	/** **/
 	public function updateSprite(sprite :Sprite) : Void
 	{
 	}
 
-	/** **/
 	public function onAddedToSprite(sprite :Sprite) : Void
 	{
 	}
 
-	/** **/
 	public function onRemovedFromSprite(sprite :Sprite) : Void
 	{
 	}
 
-	/** **/
 	@:final public function addSystem(system :System) : Model
 	{
+		trace("add");
 		system.addModel(this);
+		systems.push(system);
 		return this;
 	}
 
-	/** **/
 	@:final public function removeSystem(system :System) : Model
 	{
+		trace("remove");
 		system.removeModel(this);
+		systems.remove(system);
 		return this;
 	}
 
@@ -72,5 +72,11 @@ class Model implements Disposable
         if (owner != null) {
             owner.removeModel(this);
         }
+		for(system in systems) {
+			system.removeModel(this);
+		}
+		systems = null;
     }
+
+	private var systems :Array<System> = [];
 }

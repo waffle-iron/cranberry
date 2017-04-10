@@ -22,10 +22,22 @@
 package cranberry.system;
 
 import cranberry.model.Model;
+import cranberry.util.Disposable;
 
 /** **/
-class System
+@:allow(cranberry.Cranberry)
+class System implements Disposable
 {
+	public var locked :Bool = false;
+	public var running :Bool = true;
+	public var owner (default, null) :Cranberry;
+	public var next (default, null) :System = null;
+
+	public function new() : Void
+	{
+		_modelMap = new Map<String, Array<Model>>();
+	}
+
 	public function updateSystem(dt :Float) : Void
 	{
 	} 
@@ -35,7 +47,7 @@ class System
 		var className :String = Type.getClassName(classType);
 		var modelArra = _modelMap.get(className);
 		if(modelArra == null) {
-			modelArra = new Array<Any>();
+			modelArra = new Array<Model>();
 			_modelMap.set(className, modelArra);
 		}
 
@@ -58,5 +70,25 @@ class System
 		return this;
 	}
 
-	private var _modelMap :Map<String, Array<Any>> = new Map<String, Array<Any>>();
+	public function dispose() : Void
+	{
+		if(owner != null) {
+			owner.removeSystem(this);
+		}
+		for(modelArra in _modelMap) {
+			for(model in modelArra) {
+				model.removeSystem(this);
+			}
+		}
+		_modelMap = null;
+	}
+
+	private function _updateSystem(dt :Float) : Void
+	{
+		if(running) {
+			updateSystem(dt);
+		}
+	} 
+
+	private var _modelMap :Map<String, Array<Model>>;
 }

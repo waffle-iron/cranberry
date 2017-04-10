@@ -26,13 +26,12 @@ import cranberry.model.ModelFlipBook;
 /** **/
 class SystemFlipBook extends System
 {
-	/** **/
 	public function new() : Void
 	{
+		super();
 		_modelBookArra = this.getModel(ModelFlipBook);
 	}
 
-	/** **/
 	override public function updateSystem(dt :Float) : Void
 	{
 		for(model in _modelBookArra) {
