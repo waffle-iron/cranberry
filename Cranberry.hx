@@ -34,6 +34,7 @@ class Cranberry
 {
 	public var root :Sprite;
 	public var firstSystem (default, null) :System = null;
+	public var running :Bool;
 
 	public static function init(title :String, width :Int, height :Int, cb :Cranberry -> Void) : Void
 	{
@@ -50,6 +51,7 @@ class Cranberry
 	{
 		Platform.notifyOnRender(renderSprites);
 		Scheduler.addTimeTask(updateSystems, 0, 1 / 60);
+		running = true;
 
 		root = new Sprite();
 	}
@@ -121,6 +123,9 @@ class Cranberry
 
 	private function updateSystems() : Void 
 	{
+		if(!running)
+			return;
+			
 		var currentTime = Scheduler.time();
 		_deltaTime = currentTime - _lastTime;
 		_lastTime = currentTime;
