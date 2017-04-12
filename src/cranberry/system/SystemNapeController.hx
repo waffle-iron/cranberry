@@ -1,3 +1,24 @@
+/*
+ * Copyright (c) 2017 Jeremy Meltingtallow
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+ * Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
+ * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
 package cranberry.system;
 
 import cranberry.model.ModelNapeBodyCircle;
@@ -20,13 +41,13 @@ class SystemNapeController extends cranberry.system.System
 	{
 		for(mBody in _modelBodyArra) {
 			if(_isLeft)
-				mBody.body.velocity.x -= dt * 1000;
+				mBody.body.velocity.x -= dt * VELO;
 			if(_isRight)
-				mBody.body.velocity.x += dt * 1000;
+				mBody.body.velocity.x += dt * VELO;
 			if(_isDown)
-				mBody.body.velocity.y += dt * 1000;
+				mBody.body.velocity.y += dt * VELO;
 			if(_isUp)
-				mBody.body.velocity.y -= dt * 1000;
+				mBody.body.velocity.y -= dt * VELO;
 		}
 	}
 
@@ -72,4 +93,6 @@ class SystemNapeController extends cranberry.system.System
 	private var _isRight :Bool = false;
 	private var _isUp :Bool = false;
 	private var _isDown :Bool = false;
+
+	private static inline var VELO = 80000;
 }

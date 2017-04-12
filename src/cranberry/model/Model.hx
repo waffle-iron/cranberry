@@ -49,7 +49,6 @@ class Model implements Disposable
 
 	@:final public function addSystem(system :System) : Model
 	{
-		trace("add");
 		system.addModel(this);
 		systems.push(system);
 		return this;
@@ -57,7 +56,6 @@ class Model implements Disposable
 
 	@:final public function removeSystem(system :System) : Model
 	{
-		trace("remove");
 		system.removeModel(this);
 		systems.remove(system);
 		return this;
