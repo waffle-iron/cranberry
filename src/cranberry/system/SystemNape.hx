@@ -24,7 +24,7 @@ package cranberry.system;
 import cranberry.system.System;
 import cranberry.model.ModelNapeBodyCircle;
 import cranberry.model.ModelNapeBodyRec;
-
+import cranberry.model.ModelManager;
 import nape.geom.Vec2;
 import nape.space.Space;
 
@@ -37,8 +37,6 @@ class SystemNape extends System
 	{
         super();
 		space = new Space(new Vec2(0, 600));
-		_modelBodyArra = this.getModel(ModelNapeBodyCircle);
-		_modelBodyArra2 = this.getModel(ModelNapeBodyRec);
 	}
 
 	override public function updateSystem(dt :Float) : Void
@@ -46,23 +44,19 @@ class SystemNape extends System
 		if(dt > 0)
 			space.step(dt);
 
-		for(body in _modelBodyArra) {
-			if(!body.hasBeenAdded) {
-				body.hasBeenAdded = true;
-				body.body.space = space;
+		for(model in ModelManager._.getModel(ModelNapeBodyCircle)) {
+			if(!model.hasBeenAdded) {
+				model.hasBeenAdded = true;
+				model.body.space = space;
 			}
 		}
 
-		for(body in _modelBodyArra2) {
-			if(!body.hasBeenAdded) {
-				body.hasBeenAdded = true;
-				body.body.space = space;
+		for(model in ModelManager._.getModel(ModelNapeBodyRec)) {
+			if(!model.hasBeenAdded) {
+				model.hasBeenAdded = true;
+				model.body.space = space;
 			}
 		}
 	}
-
-	private var _modelBodyArra :Array<ModelNapeBodyCircle>;
-	private var _modelBodyArra2 :Array<ModelNapeBodyRec>;
-
 
 }

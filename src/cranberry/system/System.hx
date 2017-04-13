@@ -35,52 +35,16 @@ class System implements Disposable
 
 	public function new() : Void
 	{
-		_modelMap = new Map<String, Array<Model>>();
 	}
 
 	public function updateSystem(dt :Float) : Void
 	{
 	} 
 
-	@:final public function getModel<M>(classType :Class<M>) :Array<M>
-	{
-		var className :String = Type.getClassName(classType);
-		var modelArra = _modelMap.get(className);
-		if(modelArra == null) {
-			modelArra = new Array<Model>();
-			_modelMap.set(className, modelArra);
-		}
-
-		return cast modelArra;
-	}
-
-	@:allow(cranberry.model.Model)
-	@:final private function addModel(model :Model) : System
-	{
-		var modelArra = getModel(Type.getClass(model));
-		modelArra.push(model);
-		return this;
-	}
-
-	@:allow(cranberry.model.Model)
-	@:final private function removeModel(model :Model) : System
-	{
-		var modelArra = getModel(Type.getClass(model));
-		modelArra.remove(model);
-		return this;
-	}
-
 	public function dispose() : Void
 	{
-		if(owner != null) {
+		if(owner != null)
 			owner.removeSystem(this);
-		}
-		for(modelArra in _modelMap) {
-			for(model in modelArra) {
-				model.removeSystem(this);
-			}
-		}
-		_modelMap = null;
 	}
 
 	private function _updateSystem(dt :Float) : Void
@@ -89,6 +53,4 @@ class System implements Disposable
 			updateSystem(dt);
 		}
 	} 
-
-	private var _modelMap :Map<String, Array<Model>>;
 }

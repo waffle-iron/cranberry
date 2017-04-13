@@ -19,19 +19,46 @@
  * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package cranberry.platform.kha;
+package cranberry.model;
 
-import cranberry.platform.kha.graphics.Framebuffer;
-
-class KhaPlatform
+class ModelManager
 {
-	public static function notifyOnRender(listener: Framebuffer -> Void, id: Int = 0): Void 
+    public static var _ (get, null) : ModelManager;
+
+    private function new() : Void
+    {
+        _models = new Map<String, Array<Model>>();
+    }
+
+
+    public function getModel<M>(classType :Class<M>) :Array<M>
 	{
-		kha.System.notifyOnRender(listener, id);
+		var className :String = Type.getClassName(classType);
+        if(!_models.exists(className)) {
+            _models.set(className, []);
+        }
+
+        return cast _models.get(className);
 	}
 
-	public static function init(options: Dynamic, callback: Void -> Void): Void
+	public function addModel(model :Model) : Void
 	{
-		kha.System.init(options, callback);
+        getModel(Type.getClass(model)).push(model);
+
 	}
+
+	public function removeModel(model :Model) : Bool
+	{
+		return getModel(Type.getClass(model)).remove(model);
+	}
+
+
+    private static function get__() : ModelManager
+    {
+        if(_ == null)
+            _ = new ModelManager();
+        return _;
+    }
+
+    private var _models :Map<String, Array<Model>>;
 }

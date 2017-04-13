@@ -24,6 +24,7 @@ package cranberry.system;
 import cranberry.model.ModelNapeBodyCircle;
 import cranberry.input.Keyboard;
 import cranberry.input.Key;
+import cranberry.model.ModelManager;
 
 /** **/
 class SystemNapeController extends cranberry.system.System
@@ -33,21 +34,22 @@ class SystemNapeController extends cranberry.system.System
 	{
         super();
 		Keyboard.get().notify(onKeyDown, onKeyUp);
-		_modelBodyArra = this.getModel(ModelNapeBodyCircle);
 	}
 
 	/** **/
 	override public function updateSystem(dt :Float) : Void
 	{
-		for(mBody in _modelBodyArra) {
+		for(model in ModelManager._.getModel(ModelNapeBodyCircle)) {
 			if(_isLeft)
-				mBody.body.velocity.x -= dt * VELO;
+				model.body.velocity.x -= dt * VELO;
 			if(_isRight)
-				mBody.body.velocity.x += dt * VELO;
+				model.body.velocity.x += dt * VELO;
 			if(_isDown)
-				mBody.body.velocity.y += dt * VELO;
+				model.body.velocity.y += dt * VELO;
 			if(_isUp)
-				mBody.body.velocity.y -= dt * VELO;
+				model.body.velocity.y -= dt * VELO;
+
+			model = cast model.next;
 		}
 	}
 
@@ -86,8 +88,6 @@ class SystemNapeController extends cranberry.system.System
 			case _:
 		}
 	}
-
-	private var _modelBodyArra :Array<ModelNapeBodyCircle>;
 
 	private var _isLeft :Bool = false;
 	private var _isRight :Bool = false;

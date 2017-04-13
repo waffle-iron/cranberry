@@ -27,6 +27,7 @@ class ModelNapeBodyCircle extends ModelNapeBody
 {
 	public function new(radius :Float, isStatic :Bool) : Void
 	{
+		super();
 		this.napeShape = CIRCLE(radius);
 		this.bodyType = isStatic ? BodyType.STATIC : BodyType.DYNAMIC;
 		this.isStatic = isStatic;

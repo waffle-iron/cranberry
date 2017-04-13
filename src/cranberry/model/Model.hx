@@ -22,9 +22,8 @@
 package cranberry.model;
 
 import cranberry.sprite.Sprite;
-import cranberry.system.System;
 import cranberry.util.Disposable;
-
+import cranberry.model.ModelManager;
 
 /** **/
 @:allow(cranberry.sprite.Sprite)
@@ -35,6 +34,12 @@ class Model implements Disposable
 	public var locked :Bool = false;
 
 
+	public function new() : Void
+	{
+		ModelManager._.addModel(this);
+	}
+
+
 	public function updateSprite(sprite :Sprite) : Void
 	{
 	}
@@ -43,22 +48,17 @@ class Model implements Disposable
 	{
 	}
 
+	public function onSpriteChanged(sprite :Sprite) : Void
+	{
+	}
+
 	public function onRemovedFromSprite(sprite :Sprite) : Void
 	{
 	}
 
-	@:final public function addSystem(system :System) : Model
+	public function nextModel<M>():M
 	{
-		system.addModel(this);
-		systems.push(system);
-		return this;
-	}
-
-	@:final public function removeSystem(system :System) : Model
-	{
-		system.removeModel(this);
-		systems.remove(system);
-		return this;
+		return cast next;
 	}
 
 	public function dispose ()
@@ -66,11 +66,7 @@ class Model implements Disposable
         if (owner != null) {
             owner.removeModel(this);
         }
-		for(system in systems) {
-			system.removeModel(this);
-		}
-		systems = null;
-    }
 
-	private var systems :Array<System> = [];
+		ModelManager._.removeModel(this);
+    }
 }

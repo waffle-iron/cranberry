@@ -38,6 +38,7 @@ class ModelFlipBook extends Model
 
 	public function new(speed :Float, columns :Int, rows :Int) : Void
 	{
+		super();
 		this.speed = speed;
 		this.columns = columns;
 		this.rows = rows;

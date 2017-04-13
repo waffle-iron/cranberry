@@ -22,6 +22,8 @@
 package cranberry.model;
 
 import cranberry.model.Model;
+import cranberry.sprite.Sprite;
+
 import nape.phys.Body;
 import nape.shape.Circle;
 import nape.shape.Polygon;
@@ -38,16 +40,20 @@ class ModelNapeBody extends Model
 	public var bodyType :BodyType;
 	public var isStatic (default, set) :Bool;
 
-	/** **/
-	override public function updateSprite(sprite :cranberry.sprite.Sprite) : Void
+	public function new() : Void
 	{
+		super();
+	}
+
+	override public function updateSprite(sprite :Sprite) : Void
+	{
+		trace("update!!");
 		sprite.x = body.position.x;
 		sprite.y = body.position.y;
 		sprite.rotation = body.rotation.toDegrees();
 	}
 
-	/** **/
-	override public function onAddedToSprite(sprite :cranberry.sprite.Sprite) : Void
+	override public function onAddedToSprite(sprite :Sprite) : Void
 	{
 		body = new Body();
 		var shape = switch napeShape {
@@ -57,11 +63,16 @@ class ModelNapeBody extends Model
 		shape.material = nape.phys.Material.rubber();
 		body.shapes.add(shape);
 		body.type = bodyType;
-		body.position = new Vec2(sprite.x, sprite.y);
+		body.position = Vec2.weak(sprite.x, sprite.y);
 	}
 
-	/** **/
-	override public function onRemovedFromSprite(sprite :cranberry.sprite.Sprite) : Void
+	override public function onSpriteChanged(sprite :Sprite) : Void
+	{
+		body.position = Vec2.weak(sprite.x, sprite.y);
+		body.rotation = sprite.rotation.toRadians();
+	}
+
+	override public function onRemovedFromSprite(sprite :Sprite) : Void
 	{
 	}
 

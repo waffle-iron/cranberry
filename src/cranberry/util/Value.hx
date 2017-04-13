@@ -19,19 +19,9 @@
  * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package cranberry.platform.kha;
+package cranberry.util;
 
-import cranberry.platform.kha.graphics.Framebuffer;
-
-class KhaPlatform
+typedef Value<A> =
 {
-	public static function notifyOnRender(listener: Framebuffer -> Void, id: Int = 0): Void 
-	{
-		kha.System.notifyOnRender(listener, id);
-	}
-
-	public static function init(options: Dynamic, callback: Void -> Void): Void
-	{
-		kha.System.init(options, callback);
-	}
+    var val :A;
 }

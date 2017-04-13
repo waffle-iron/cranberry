@@ -27,6 +27,7 @@ class ModelNapeBodyRec extends ModelNapeBody
 {
 	public function new(width :Float, height :Float, isStatic :Bool) : Void
 	{
+		super();
 		this.napeShape = RECTANGLE(width, height);
 		this.bodyType = isStatic ? BodyType.STATIC : BodyType.DYNAMIC;
 		this.isStatic = isStatic;

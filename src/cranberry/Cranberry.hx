@@ -101,19 +101,37 @@ class Cranberry
 
 	private function updateSystems() : Void 
 	{
-		if(!running)
-			return;
-			
 		var currentTime = Scheduler.time();
 		_deltaTime = currentTime - _lastTime;
 		_lastTime = currentTime;
+		if(_deltaTime < 0)
+			_deltaTime = 0;
+
+		if(!running)
+			return;
 
 		var sys = firstSystem;
 		while(sys != null) {
 			sys._updateSystem(_deltaTime);
 			sys = sys.next;
 		}
+		updateSprite(root);
 	}
+
+	private function updateSprite(sprite :Sprite) : Void
+	{
+		var model = sprite.firstModel;
+		while(model != null) {
+			model.updateSprite(sprite);
+			model = model.next;
+		}
+		var p = sprite.firstChild;
+        while (p != null) {
+            var next = p.next;
+            updateSprite(p);
+            p = next;
+        }
+	} 
 
 	private function renderSprites(framebuffer: Framebuffer) : Void 
 	{

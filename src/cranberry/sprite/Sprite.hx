@@ -199,6 +199,7 @@ class Sprite implements Disposable
 
         while (firstModel != null) {
             firstModel.dispose();
+			firstModel = firstModel.next;
         }
         disposeChildren();
     }
@@ -206,12 +207,6 @@ class Sprite implements Disposable
 	@:allow(cranberry.Cranberry)
 	@:final private function _render(framebuffer: Framebuffer): Void 
 	{
-		var model = this.firstModel;
-		while(model != null) {
-			model.updateSprite(this);
-			model = model.next;
-		}
-
 		framebuffer.g2.color = Color.White;
 		var sin = Math.sin(rotation.toRadians());
 		var cos = Math.cos(rotation.toRadians());
